@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Router } from "@reach/router";
+import Title from "./components/Title";
+import ChatPage from "./components/ChatPage";
+import ChatList from "./components/ChatList";
+import Settings from "./components/Settings";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Title />
+      <main>
+        <Router>
+          <ChatList path="/" />
+          <ChatPage path="/chat-page/:chat_id" />
+          <Settings path="/settings" />
+        </Router>
+      </main>
     </div>
   );
 }
