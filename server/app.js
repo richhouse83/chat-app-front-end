@@ -1,70 +1,62 @@
-const express = require("express")
-const app = express()
-const http = require("http").Server(app)
-const io =require("socket.io")(http,{
-  cors: {origin:"*"}
-})
+const express = require('express');
+
+const app = express();
+
+const http = require('http').Server(app);
+
+const io = require('socket.io')(http, {
+  cors: { origin: '*' },
+});
 
 // DB
 const userObj = {
-  id:0,
-  name:"",
-  avatarUrl:"",
-  chats:[]
-}
+  id: 0,
+  name: null,
+  avatarUrl: null,
+  chats: [],
+};
 
-const Chats = []
+const chats = [];
 
-const typing ={}
+const typing = {};
 
-
-io.on("connection",(socket)=>{
-  console.log("we are connected")
-  socket.on("joinChat",(user)=>{
+io.on('connection', (socket) => {
+  console.log('we are connected');
+  socket.on('joinChat', (user) => {
     userObj[socket.id] = {
-      id:socket.id,
+      id: socket.id,
       name: user.name,
-      avatarUrl:user.avatar
-    }
-    chats.push([userObj[socket.id]])
-    socket.broadcast.emit("joinChat", user[socket.id])
+      avatarUrl: user.avatar,
+    };
+    chats.push([userObj[socket.id]]);
+    socket.broadcast.emit('joinChat', user[socket.id]);
+  });
 
+  socket.on('typing', () => {
+    typing[socket.id] = 1;
 
-  })
+    socket.broadcast.emit('typing', {
+      user: userObj[socket.id].name,
+      typing: Object.keys(typing).length,
+    });
+  });
 
-  socket.on("typing",()=>{
+  socket.on('stopTyping', () => {
+    delete typing[socket.id];
 
-    typing[socket.id] = 1
+    socket.broadcast.emit('stopTyping', Object.keys(typing).length);
+  });
 
-    socket.broadcast.emit("typing",{
-      user:userObj[socket.id].name,
-      typing:Object.keys(typing).length
-    })
-
-  })
-
-  socket.on("stopTyping", ()=>{
-    delete typing[socket.id]
-
-    socket.broadcast.emit("stopTyping",Object.keys(typing).length)
-  })
-
-
-  socket.on("message",(message)=>{
+  socket.on('message', (message) => {
     //front end to send us message here //
-    console.log(message)
-    
+    chats.push(message);
+    console.log(message);
 
     //multiple clients listen
-    io.emit ("message",`${socket.id}  said ${message}`)
+    io.emit('message', `${socket.id}  said ${message}`);
+  });
+});
 
-
-  })
-
-
-})
-
-
-app.listen (9091,()=>{
-  console.log("listening on port 9091")
-})
+app.listen(9091, () => {
+  console.log('listening on port 9091');
+});
