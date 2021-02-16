@@ -1,9 +1,9 @@
-import "./App.css";
-import { Router } from "@reach/router";
-import Title from "./components/Title";
-import ChatPage from "./components/ChatPage";
-import ChatList from "./components/ChatList";
-import Settings from "./components/Settings";
+import './App.css';
+import { Router } from '@reach/router';
+import Title from './components/Title';
+import ChatPage from './components/ChatPage';
+import ChatList from './components/ChatList';
+import Settings from './components/Settings';
 
 function App() {
   return (
