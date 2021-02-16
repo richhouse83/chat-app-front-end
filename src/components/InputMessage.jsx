@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { Link } from "@reach/router";
+import React, { useState } from 'react';
+import { Link } from '@reach/router';
 
 export default function InputMessage({ socket }) {
-  const [messageText, setMessageText] = useState("");
+  const [messageText, setMessageText] = useState('');
 
   const handleChange = ({ target: { value } }) => {
     setMessageText(value);
@@ -10,9 +10,10 @@ export default function InputMessage({ socket }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("sending", messageText);
-    socket.emit("message", messageText);
-    setMessageText("");
+    // eslint-disable-next-line no-console
+    console.log('sending', messageText);
+    socket.emit('message', messageText);
+    setMessageText('');
   };
 
   return (
@@ -25,10 +26,17 @@ export default function InputMessage({ socket }) {
           id="message"
           cols="30"
           rows="5"
-        ></textarea>
+        />
         <Link to="/settings">Settings</Link>
-        <button onClick={handleSubmit}>Send Message</button>
+        <button type="button" onClick={handleSubmit}>
+          Send Message
+        </button>
       </form>
     </section>
   );
 }
+
+InputMessage.propTypes = {
+  // eslint-disable-next-line no-undef
+  socket: PropTypes.function.isRequired,
+};

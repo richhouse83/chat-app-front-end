@@ -1,5 +1,5 @@
-import React from "react";
-import MessageCard from "./cards/MessageCard";
+import React from 'react';
+import MessageCard from './cards/MessageCard';
 
 export default function MessageList() {
   return (
