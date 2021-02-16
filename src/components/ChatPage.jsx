@@ -1,11 +1,11 @@
-import React from "react";
-import MessageList from "../components/MessageList";
-import ChatMembers from "./ChatMembers";
-import InputMessage from "./InputMessage";
-import useSocket from "use-socket.io-client";
+import React from 'react';
+import useSocket from 'use-socket.io-client';
+import MessageList from './MessageList';
+import ChatMembers from './ChatMembers';
+import InputMessage from './InputMessage';
 
 export default function ChatPage() {
-  const [socket] = useSocket("ws://localhost:8080", {
+  const [socket] = useSocket('ws://localhost:8080', {
     autoConnect: false,
   });
 

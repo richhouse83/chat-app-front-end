@@ -1,6 +1,7 @@
-import React from "react";
-import ChatCard from "./cards/ChatCard";
-import Controls from "./Controls";
+import React from 'react';
+import ChatCard from './cards/ChatCard';
+import Controls from './Controls';
+
 export default function ChatList() {
   return (
     <>
