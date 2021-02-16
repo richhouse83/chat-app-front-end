@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from '@reach/router';
+import PropTypes from 'prop-types';
 
 export default function InputMessage({ socket }) {
   const [messageText, setMessageText] = useState('');
@@ -38,5 +39,5 @@ export default function InputMessage({ socket }) {
 
 InputMessage.propTypes = {
   // eslint-disable-next-line no-undef
-  socket: PropTypes.function.isRequired,
+  socket: PropTypes.func.isRequired,
 };

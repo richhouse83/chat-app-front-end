@@ -21,7 +21,6 @@ const chats = [];
 const typing = {};
 
 io.on('connection', (socket) => {
-  // eslint-disable-next-line no-console
   console.log('we are connected');
   socket.on('joinChat', (user) => {
     userObj[socket.id] = {
@@ -49,9 +48,8 @@ io.on('connection', (socket) => {
   });
 
   socket.on('message', (message) => {
-    // front end to send us message here
+    // front end to send us message here //
     chats.push(message);
-    // eslint-disable-next-line no-console
     console.log(message);
 
     // multiple clients listen
@@ -60,6 +58,5 @@ io.on('connection', (socket) => {
 });
 
 app.listen(9091, () => {
-  // eslint-disable-next-line no-console
   console.log('listening on port 9091');
 });
